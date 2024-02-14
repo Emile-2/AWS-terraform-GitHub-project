@@ -50,7 +50,7 @@ resource "aws_instance" "example" {
 }
 ```
    **Step 3:** Initialise Terraform
-   - From your CMD in directory you're working from run `terraform init`
+   - From your terminal in directory you're working from run `terraform init`
    **Expected output**
    (insert screenshot here)
 
@@ -130,7 +130,7 @@ resource "github_repository" "example" {
 ```
 **Step 3:** Initialise Terraform
 
-- In your CMD navaigate to your working directory
+- In your terminal navaigate to your working directory
 - run `terraform init`
 
 **Step 4** Plan infrastructure
@@ -142,10 +142,78 @@ resource "github_repository" "example" {
 - run `terraform apply`
 - On GitHub you should now be able to find your new repository
 
-  
-  
+**Step 6:** Destroy resources created <br>
+- Run `terraform destroy`
 
-   
+### Using Terraform to create S3 Buckets
+
+### AWS Prerequisites:
+
+1. AWS
+   - Set up your AWS console
+   - Create an environment variable for tokens and access key. ([Guide](https://digitalcloud.training/how-to-use-and-configure-aws-cli-environment-variables/#:~:text=To%20configure%20AWS%20CLI%20with,%2C%20'Default%20output%20format'.))
+   - Create directory `s3`
+
+
+**Create S3 Bucket**
+
+Inside the directory create `s3.tf` file
+
+**Step 1:** Configure provider in `s3.tf` file
+
+```
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "5.36.0"
+    }
+  }
+}
+
+provider "aws" {
+  # Configuration options
+  region="eu-west-1"
+}
+```
+- The latest Provider and Resource documentation for AWS can be found [Here](https://registry.terraform.io/providers/hashicorp/aws/latest)
+  
+**Step 2:** Configure resources in `s3.tf`
+
+```
+resource "aws_s3_bucket" "example" {
+  bucket = "testbucket123456"
+
+  tags = {
+    Name        = "test_bucket"
+    Environment = "Dev"
+  }
+}
+```
+- Note: S3 buckets must have a unique name
+
+**Step 6** Initialise Terraform
+- In your terminal, navigate to your working directory
+- run `terraform init`
+
+**Step 5:** Plan your Infrastructure 
+- run `terraform plan`
+
+**Step 6:** Apply Infrastructure
+
+- run`terraform apply`
+
+**If you navigate to AWS S3, you will see that a bucket has been created.** 
+
+**Step 6:** Destroy resources created <br>
+ -  Run `terraform destroy`
+
+
+
+
+
+
+
 
 
 
