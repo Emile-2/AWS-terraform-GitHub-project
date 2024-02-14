@@ -1,13 +1,13 @@
 provider "aws" {
-  region = var.aws_region
+  region = "eu-west-1"
 }
 
 resource "aws_s3_bucket" "test_s3" {
   bucket = "emiledevopstest556373"
 
   tags = {
-    Name        = var.bucket
-    Environment = var.environment
+    Name        = "test_bucket"
+    Environment = "dev"
   }
 }
 
