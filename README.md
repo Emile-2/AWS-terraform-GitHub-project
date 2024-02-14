@@ -1,5 +1,7 @@
 # AWS-terraform-GitHub-project
-Learning path progress = 33%
+
+## Diagram
+![alt text](/images/diagram.jpg)
 
 ### What is Terraform
 Terraform is an open source Infrastructure as code tool created by HashiCorp.
@@ -49,10 +51,11 @@ resource "aws_instance" "example" {
 
 }
 ```
-   **Step 3:** Initialise Terraform
-   - From your terminal in directory you're working from run `terraform init`
-   **Expected output**
-   (insert screenshot here)
+**Step 3:** Initialise Terraform
+- From your terminal in directory you're working from run `terraform init`
+     
+**Expected output:** <br>
+![alt text](/images/terraform_init.PNG)
 
    **Step 4:** Plan your Infrastructure <br>
 
@@ -61,11 +64,11 @@ Run `terraform plan`
    **Step 5:** Apply changes <br>
   Run `terraform apply`
 
-**Expected output**
-(insert succesful apply screenshot)
+**Expected output** <br>
+![alt text](/images/tf_apply.PNG)
 
-**In your AWS Management console, In EC2 you will see that your EC2 has been created.**
-(EC2 Image here)
+**In your AWS Management console, In EC2 you will see that your EC2 has been created.** <br>
+![alt text](/images/ec2.PNG)
 
 **Step 6:** Destroy resources created <br>
    Run `terraform destroy`
@@ -83,17 +86,22 @@ Run `terraform plan`
 - On GitHub head to `Settings`
 - Select `Developer Settings` > `Developer Settings` > `Personal access tokens`
 - Select `Fine-grained tokens`
-- Select `Generate new token`
+- Select `Generate new token` <br>
+![alt text](/images/github_token.PNG)
 
 **Step 2:** Name the token, Set expiration date
 
-**Step 3** Set repository access as `All repositories`
+**Step 3** Set repository access as `All repositories` <br>
+![alt text](/images/repo_all_access.PNG)
 
-**Step 4:** Click repository permissions > Administration > Read and Write
+**Step 4:** Click repository permissions > Administration > Read and Write <br>
+![alt text](/images/repo_permissions.PNG)
+
 
 **Step 5:** Click `Generate Token`
 - Make sure you copy your token for use in the next steps
-- Similar to AWS access credentials, you can set the token as an environment variable (`GITHUB_TOKEN`) or use directly in the Terraform file.
+- Similar to AWS access credentials, you can set the token as an environment variable (`GITHUB_TOKEN`) or use directly in the Terraform file. <br>
+![alt text](/images/github_token.PNG)
 
 **Deploy repo using Terraform**
 
@@ -203,10 +211,49 @@ resource "aws_s3_bucket" "example" {
 
 - run`terraform apply`
 
-**If you navigate to AWS S3, you will see that a bucket has been created.** 
+**If you navigate to AWS S3, you will see that a bucket has been created.**  <br>
+![alt text](/images/s3.PNG)
 
 **Step 6:** Destroy resources created <br>
  -  Run `terraform destroy`
+
+
+### Using S3 Backend for `.tfstate` file
+
+### Backend prerequisites
+
+1. AWS
+   - Set up your AWS console
+   - Create an environment variable for tokens and access key. ([Guide](https://digitalcloud.training/how-to-use-and-configure-aws-cli-environment-variables/#:~:text=To%20configure%20AWS%20CLI%20with,%2C%20'Default%20output%20format'.))
+   - An S3 bucket
+  
+**Setting up Backend**
+
+**Step 1:** Backend file
+- Create a new Terraform file called `backend.tf`
+
+**Step 2** Configuring backend
+- The latest backend configurations can be found [here](https://developer.hashicorp.com/terraform/language/settings/backends/s3)
+- Sample code <br>
+ ```
+  terraform {
+  backend "s3" {
+    bucket = "emiledevopstest556373"
+    key    = "test/directory/terraform.tfstate"
+    region = "eu-west-1"
+  }
+}
+```
+
+**Step 3:** Initialising backend
+- In your terminal run `terraform init` <br>
+![alt text](/images/tf_backend.PNG)
+
+**Step 4:** Check it worked
+- Navigate your way to S3 on AWS
+- Open your bucket and find your .tfstate file
+  ![alt text](/images/tf_state_backend.PNG)
+
 
 
 
