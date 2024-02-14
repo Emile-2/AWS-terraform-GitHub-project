@@ -10,5 +10,6 @@ Terraform allows you to define and manage your resources across multiple cloud p
 
 #Prerequisites:
 1. Install Terraform
-   - Download and install Terraform from the  [official website]([https://link-url-here.org](https://developer.hashicorp.com/terraform/install)https://developer.hashicorp.com/terraform/install)
+   - Download and install Terraform from the [Official Website](https://developer.hashicorp.com/terraform/install)
+
    - 
